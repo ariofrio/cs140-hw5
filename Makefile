@@ -14,3 +14,6 @@ clean:
 .DEFAULT_GOAL=test
 test: all
 	./test.sh
+
+sync:
+	while true; do rsync --archive . triton:hw5; sleep 0.1; done
