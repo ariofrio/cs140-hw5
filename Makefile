@@ -20,4 +20,4 @@ test: all
 	./test.sh
 
 sync:
-	while true; do rsync --archive . triton:hw5; sleep 0.1; done
+	while true; do rsync --archive . triton:hw5; rsync --archive triton:hw5/last_benchmark_average last_benchmark_average; sleep 0.1; done
