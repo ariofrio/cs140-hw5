@@ -10,3 +10,7 @@ validate: validate.cpp
 	g++ -o validate validate.cpp	
 clean: 
 	rm life life_debug validate
+
+.DEFAULT_GOAL=test
+test: all
+	./test.sh
