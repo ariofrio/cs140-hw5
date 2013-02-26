@@ -4,19 +4,22 @@ one_test() {
   file=$1
   number=$2
   iters=$3
-  echo -n "  $file: "
-
   n=$(wc -l $file)
+
+  printf "  %-15s  " "$file"
   output=$(./life_debug r $n $iters < $file | ./validate $n $iters $number)
   if [ "$output" = "Result matched" ]; then
     tput setaf 2
-    echo $output
+    echo -n $output
     tput sgr0
   else
     tput setaf 1; tput bold
-    echo $output
+    echo -n $output
     tput sgr0
   fi
+  tput setaf 8
+  echo "    # ./life_debug r $n $iters < $file | ./validate $n $iters $number"
+  tput sgr0
 }
 
 all_tests() {
