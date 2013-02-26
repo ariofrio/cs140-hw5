@@ -5,6 +5,7 @@ Team member 2 : Jane Doe
 */
 
 #include "life.h"
+extern int *livecount;
 
 //Generate the life matrix any way you want. We would highly recommend that you print the generated
 //matrix into a file, so that you can share it with other teams for checking correctness.
@@ -22,7 +23,7 @@ void readlife(int *a, unsigned int n)
 //Life function
 void life(int *a, unsigned int n, unsigned int iter)
 {
-	// You need to store the total number of livecounts for every 1/0th of the total iterations into the livecount array. 
+	// You need to store the total number of livecounts for every 1/10th of the total iterations into the livecount array. 
 	// For example, if there are 50 iterations in your code, you need to store the livecount for iteration number 5 10 15 
 	// 20 ... 50. The countlive function is defined in life.cpp, which you can use. Note that you can
 	// do the debugging only if the number of iterations is a multiple of 10.
@@ -43,4 +44,5 @@ void life(int *a, unsigned int n, unsigned int iter)
 	//		#ENDIF
 	//		
 	//	}
+	
 }

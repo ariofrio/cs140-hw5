@@ -4,6 +4,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<numeric>
+#include<sys/time.h>
 
 void readlife(int *a,unsigned int n);
 void genlife(int *a,unsigned int n);

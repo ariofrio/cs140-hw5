@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	unsigned int iter = atoi(argv[2]);
 	int which = atoi(argv[3]);
 	
-	if(((n%10) != 0) && (iter != 5*n))
+	if(((n%10) != 0) || (iter != 5*n))
 	{
 		printf("The test cases work for n in multiples of 10, and iter = 5*n\n");
 		exit(0);
