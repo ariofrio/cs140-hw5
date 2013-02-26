@@ -82,12 +82,19 @@ int cilk_main(int argc, char **argv)
 
 	// Print the livecount array 
 	#if DEBUG == 1
-		
 		for(int i = 0; i < 10; i++)
 			printf("%d ",livecount[i]);
 		printf("\n");
+  #endif
 
-		
+	#if OUTPUT == 1
+    printf("\n");
+    for(int i=0; i<n; i++) {
+      for(int j=0; j<n; j++) {
+        printf("%i ", a[i*n+j]);
+      }
+      printf("\n");
+    }
 	#endif
 	
 	return 0;

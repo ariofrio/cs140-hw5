@@ -3,18 +3,18 @@
 one_test() {
   file=$1
   number=$2
-  iters=$3
-  n=$(wc -l $file)
+  n=$(wc -l < $file)
+  iters=$(( n * 5 ))
 
-  printf "  %-15s  " "$file"
-  output=$(./life_debug r $n $iters < $file | ./validate $n $iters $number)
+  printf "%-15s  " "$file"
+  output=$(./life_debug r $n $iters < $file 2> /dev/null | ./validate $n $iters $number)
   if [ "$output" = "Result matched" ]; then
     tput setaf 2
-    echo -n $output
+    printf "%-20s" "$output"
     tput sgr0
   else
     tput setaf 1; tput bold
-    echo -n $output
+    printf "%-20s" "$output"
     tput sgr0
   fi
   tput setaf 8
@@ -22,22 +22,11 @@ one_test() {
   tput sgr0
 }
 
-all_tests() {
-  iters=$1
-  echo
-  tput setaf 8; echo -n "For ";
-  tput setaf 7; tput bold; echo -n $iters;
-  tput sgr0; tput setaf 8; echo " Iterations:"
-  tput sgr0
-  one_test input/input-0 0 $iters
-  one_test input/input-1.1 1 $iters
-  one_test input/input-1.2 1 $iters
-  one_test input/input-1.3 1 $iters
-  one_test input/input-1.4 1 $iters
-  one_test input/input-2 2 $iters
-}
-
-all_tests 10
-all_tests 1000
-all_tests 9970
+echo
+one_test input/input-0 0
+one_test input/input-1.1 1
+one_test input/input-1.2 1
+one_test input/input-1.3 1
+one_test input/input-1.4 1
+one_test input/input-2 2
 
