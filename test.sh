@@ -1,4 +1,5 @@
 #!/bin/sh
+ret=0
 
 header() {
   echo
@@ -23,6 +24,7 @@ one_test() {
     tput setaf 1; tput bold
     printf "%-20s" "$output"
     tput sgr0
+    ret=1
   fi
   tput setaf 8
   echo "    # ./life_debug r $n $iters < $file | ./validate $n $iters $number"
@@ -61,7 +63,6 @@ for i in input/*; do
 done
 
 average=$(echo "scale=6; $sum / $count" | bc)
-echo $average > last_benchmark_average
 saved_average=$(git show HEAD:last_benchmark_average 2> /dev/null)
 tput setaf 8
 echo "  ---------------------------"
@@ -71,21 +72,24 @@ if [ -z $saved_average ]; then
   tput setaf 2
   echo "$average"
 else
-  if [ $(echo "$average < $saved_average" | bc) -eq 1 ]; then
+  approx_equals=$(echo "$average - $saved_average < $average*0.05 && $average - $saved_average > -$average*0.05" | bc)
+  if [ $approx_equals -eq 1 ]; then
+    operator="≈"
+    tput setaf 2
+  elif [ $(echo "scale=6; $average < $saved_average" | bc) -eq 1 ]; then
     operator="<"
     tput setaf 2
-  elif [ $(echo "$average == $saved_average" | bc) -eq 1 ]; then
-    tput setaf 2
-    operator="="
   else
+    operator=">"
     tput setaf 1
     tput bold
-    operator=">"
+    ret=1
+    echo $average > last_benchmark_average
   fi
   echo -n "$average $operator $saved_average"
   tput sgr0
 fi
 echo
 
-
+exit $ret
 
